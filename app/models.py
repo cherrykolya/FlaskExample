@@ -1,5 +1,6 @@
 from . import db
 from datetime import datetime
+from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import login_manager
@@ -25,6 +26,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    posts = db.relationship('Post', back_populates="author")
 
     @property
     def password(self):
@@ -48,8 +50,9 @@ class Post(db.Model):
     __tablename__ = 'posts'
     
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(64))
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     header = db.Column(db.String(64), unique=True)
     created_at = db.Column(db.DateTime())
     text = db.Column(db.String())
     photo = db.Column(db.String())
+    author = db.relationship("User", back_populates="posts")

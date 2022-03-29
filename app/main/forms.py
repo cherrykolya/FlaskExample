@@ -12,8 +12,7 @@ class NameForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    author = StringField("Как записать автора?", validators=[DataRequired()])
     header = StringField("Заголовок поста", validators=[DataRequired()])
     text = TextAreaField("Ваш текст", validators=[DataRequired()])
     photo = FileField("Загрузить обложку поста", validators=[DataRequired()])
-    submit = SubmitField("Submit")
+    submit = SubmitField("Подтвердить")

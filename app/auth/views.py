@@ -10,6 +10,7 @@ from sqlalchemy import select
 @auth.route("/login", methods=["GET", "POST"])
 def login():
     form = AuthForm()
+
     # user = User(id=1,username='admin',email='admin@admin.com',password_hash='1',role_id= 1)
     # user.password = 'admin'
     # db.session.add(user)

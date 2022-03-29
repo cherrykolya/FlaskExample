@@ -18,7 +18,6 @@ login_manager.login_view = "auth.login"
 
 
 def create_app(config_name):
-    # db.drop_all()
 
     app = Flask(__name__)
     app.config.from_object(config)
