@@ -22,7 +22,7 @@
         <img src="{{ url_for('static', filename='categories/space.jpg') }}" alt="space">
         <div class="carousel-caption">
             <h3>Космос</h3>
-            <p><a href="{{ url_for('main.profile') }}">Присоединиться к теме</a></p>
+            <p><a href="{{ url_for('main.posts', category=1) }}">Присоединиться к теме</a></p>
         </div>
       </div>
   
@@ -30,7 +30,7 @@
         <img src="{{ url_for('static', filename='categories/nature.jpg') }}" alt="nature">
         <div class="carousel-caption">
             <h3>Природа</h3>
-            <p><a href="{{ url_for('main.profile') }}">Присоединиться к теме</a></p>
+            <p><a href="{{ url_for('main.posts', category=2) }}">Присоединиться к теме</a></p>
         </div>
       </div>
   
@@ -38,7 +38,7 @@
         <img src="{{ url_for('static', filename='categories/auto.jpg') }}" alt="auto">
         <div class="carousel-caption">
             <h3>Автомобили</h3>
-            <p><a href="{{ url_for('main.profile') }}">Присоединиться к теме</a></p>
+            <p><a href="{{ url_for('main.posts', category=3) }}">Присоединиться к теме</a></p>
         </div>
       </div>
     </div>
@@ -53,19 +53,20 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+
 <div class="page-header">
     <h1>Все разделы</h1>
 </div>
 <footer class="container">
 <div class="row">
     <div class="col-sm-3">
-        <button type="button" class="btn btn-link">Космос</button>
+        <a href="{{ url_for('main.posts', category=1) }}">Космос</a>
     </div>
     <div class="col-sm-3">
-        <button type="button" class="btn btn-link">Природа</button>
+        <a href="{{ url_for('main.posts', category=2) }}">Природа</a>
     </div>
     <div class="col-sm-3">
-        <button type="button" class="btn btn-link">Авто</button>
+        <a href="{{ url_for('main.posts', category=3) }}">Авто</a>
     </div>
 </div>
 </footer>

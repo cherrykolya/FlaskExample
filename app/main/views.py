@@ -5,7 +5,7 @@ from . import main
 from .forms import NameForm, PostForm
 from .utils import CategoriesEnum
 from .. import db
-from ..models import User, Post, Role
+from ..models import User, Post, Role, Category
 from datetime import datetime
 import os
 
@@ -35,12 +35,17 @@ def create_post():
         return render_template('post_created.html') 
     return render_template('create_post.html', form=form)
 
-@main.route('/posts', methods=['GET', 'POST'])
-def posts():
-    posts = User.query.all()
 
-    posts = Post.query.order_by(Post.created_at.desc()).all()
-    return render_template('posts.html', phrase="Hi!", posts=posts)
+@main.route('/posts/<category>', methods=['GET', 'POST'])
+def posts(category):
+    if category == 'all':
+        posts = Post.query.order_by(Post.created_at.desc()).all()
+        return render_template('posts.html', phrase="Hi!", posts=posts)
+    else:
+        category = Category.query.filter_by(id=int(category)).first()
+        #posts = User.query.all()
+        #posts = Post.query.order_by(Post.created_at.desc()).all()
+        return render_template('posts.html', phrase="Hi!", posts=category.posts)
 
 @main.route('/', methods=['GET', 'POST'])
 def index():

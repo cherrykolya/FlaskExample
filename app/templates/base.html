@@ -39,7 +39,7 @@
                     <li><a href="/">Главная</a></li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    <li><a href="/posts">Посты</a></li>
+                    <li><a href="{{ url_for('main.posts', category='all') }}">Посты</a></li>
                 </ul>
                 <ul class="nav navbar-nav">
                     <li><a href="/create_post">Создать пост</a></li>
