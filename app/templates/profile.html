@@ -8,7 +8,17 @@
     <h1> Профиль </h1>
 </div>
 <div class="panel">
-    <h1> Здесь будет информация о пользователе </h1>
+  <div class="row">
+    <div class="col-md-2">
+      <img src="{{ url_for('static', filename='categories/nature.jpg') }}" >
+    </div>
+    <div class="col-md-4">
+      <p>{{user.username}}<br></p>
+      <p>{{user.email}}<br></p>
+      <p>{{user.role.name}}<br></p>
+      <p></p>
+    </div>
+  </div>
 </div>
 <div class="panel">
     <h1> Мои посты </h1>
@@ -16,7 +26,7 @@
         {% for post in posts%}
         <div class="col-sm-1 col-md-3" >
           <div class="thumbnail" style="background-color: rgb(228, 228, 228);">
-            <a href="#">
+            <a href="{{ url_for('main.conversation', post_id=post.id) }}">
               <img src="{{ url_for('static', filename=post.photo) }}" alt="panel image cap">
               <div class="caption">
                 <h3>{{post.header}}</h3>

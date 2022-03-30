@@ -72,7 +72,7 @@ def profile():
     #db.create_all()
     user_id = int(session['_user_id'])
     user = User.query.filter_by(id=user_id).first()
-    return render_template('profile.html',name = session.get('name'),known = session.get('known', False), posts=user.posts)
+    return render_template('profile.html',name = session.get('name'),known = session.get('known', False), posts=user.posts, user=user)
 
 @main.route('/conversation/<post_id>', methods=['GET', 'POST'])
 def conversation(post_id):
