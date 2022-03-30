@@ -65,7 +65,19 @@ class Post(db.Model):
     
     author = db.relationship("User", back_populates="posts")
     category = db.relationship("Category", back_populates="posts")
+    comments = db.relationship("Comment", back_populates="post")
 
+class Comment(db.Model):
+    __tablename__ = "comments"
+
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    created_at = db.Column(db.DateTime())
+    text = db.Column(db.String())
+
+    author = db.relationship("User")
+    post = db.relationship('Post', back_populates="comments")
 
 @login_manager.user_loader
 def load_user(user_id: int):

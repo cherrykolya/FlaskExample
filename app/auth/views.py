@@ -15,6 +15,7 @@ def login():
     # user.password = 'admin'
     # db.session.add(user)
     # db.session.commit()
+    #db.create_all()
     if form.validate_on_submit():
         email = form.login.data
         user = User.query.filter_by(

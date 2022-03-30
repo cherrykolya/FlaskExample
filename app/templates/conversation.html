@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Обсуждение</h1>
+</div>
+{{ wtf.quick_form(form) }}
+<ul class="posts">
+    {% for comment in posts.comments %}
+        <li class="post">
+            <div class="profi le-thumbnail">
+                    <img class="img-rounded profi le-thumbnail" src="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+                        
+                        </div>
+                        <div class="post-date">{{comment.created_at}}</div>
+                        <div class="post-author">{{comment.author.username}}</div>
+            <div class="post-body">{{comment.text}}</div>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

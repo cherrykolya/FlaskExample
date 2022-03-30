@@ -23,3 +23,7 @@ class PostForm(FlaskForm):
         a = field.data.filename.split('.')
         if a[1] not in ['png','jpg','jpeg']:
             raise ValidationError("Формат изображения .jpg и .png")
+
+class CommentForm(FlaskForm):
+    text = TextAreaField("Ваш текст", validators=[DataRequired()])
+    submit = SubmitField("Отправить")

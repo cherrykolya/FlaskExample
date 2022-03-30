@@ -2,10 +2,10 @@ from flask import render_template, session, redirect, url_for
 from flask_login import login_required
 from sqlalchemy import select
 from . import main
-from .forms import NameForm, PostForm
+from .forms import NameForm, PostForm, CommentForm
 from .utils import CategoriesEnum
 from .. import db
-from ..models import User, Post, Role, Category
+from ..models import User, Post, Role, Category, Comment
 from datetime import datetime
 import os
 
@@ -40,12 +40,12 @@ def create_post():
 def posts(category):
     if category == 'all':
         posts = Post.query.order_by(Post.created_at.desc()).all()
-        return render_template('posts.html', phrase="Hi!", posts=posts)
+        return render_template('posts.html', posts=posts)
     else:
         category = Category.query.filter_by(id=int(category)).first()
         #posts = User.query.all()
         #posts = Post.query.order_by(Post.created_at.desc()).all()
-        return render_template('posts.html', phrase="Hi!", posts=category.posts)
+        return render_template('posts.html', posts=category.posts)
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -73,3 +73,18 @@ def profile():
     user_id = int(session['_user_id'])
     user = User.query.filter_by(id=user_id).first()
     return render_template('profile.html',name = session.get('name'),known = session.get('known', False), posts=user.posts)
+
+@main.route('/conversation/<post_id>', methods=['GET', 'POST'])
+def conversation(post_id):
+    form = CommentForm()
+    if form.validate_on_submit():
+        comment = Comment(author_id=int(session['_user_id']),
+            post_id= int(post_id),
+            text=form.text.data,
+            created_at=datetime.now())
+        db.session.add(comment)
+        db.session.commit()
+        post = Post.query.filter_by(id=int(post_id)).first() 
+        return render_template('conversation.html', posts=post, form=form) 
+    post = Post.query.filter_by(id=int(post_id)).first()
+    return render_template('conversation.html', posts=post, form=form)
