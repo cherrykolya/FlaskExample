@@ -1,3 +1,4 @@
+import os
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import login_user, logout_user, login_required
 from .forms import AuthForm, RegistrationForm
@@ -33,6 +34,10 @@ def login():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
+        # создаем директорию для хранения файлов пользователя
+        
+        dir = os.path.abspath(os.getcwd()) + f'/app/static/{form.username.data}'
+        os.mkdir(dir)
         user = User(
             username=form.username.data,
             email=form.email.data,

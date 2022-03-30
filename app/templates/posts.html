@@ -10,7 +10,7 @@
   <div class="col-sm-1 col-md-3" >
     <div class="thumbnail" style="background-color: rgb(228, 228, 228);">
       <a href="{{ url_for('main.conversation', post_id=post.id) }}">
-        <img src="{{ url_for('static', filename=post.photo) }}" alt="panel image cap">
+        <img src="{{ url_for('static', filename=post.author.username + '/' + post.photo) }}">
         <div class="caption">
           <h3>{{post.header}}</h3>
           <p>{{post.text}}</p>

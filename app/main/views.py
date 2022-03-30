@@ -1,11 +1,12 @@
 from flask import render_template, session, redirect, url_for
 from flask_login import login_required
 from sqlalchemy import select
+from PIL import Image
 from . import main
 from .forms import NameForm, PostForm, CommentForm
 from .utils import CategoriesEnum
 from .. import db
-from ..models import User, Post, Role, Category, Comment
+from ..models import User, Post, Category, Comment
 from datetime import datetime
 import os
 
@@ -18,7 +19,8 @@ def create_post():
     form = PostForm()
     if form.validate_on_submit():
         #photo = form.photo.raw_data[0].stream._file
-        d = os.path.abspath(os.getcwd()) + f'/app/static/{form.photo.data.filename}'
+        user = User.query.filter_by(id=int(session['_user_id'])).first()
+        d = os.path.abspath(os.getcwd()) + f'/app/static/{user.username}/{form.photo.data.filename}'
         
         with open(d,'wb') as out: ## Open temporary file as bytes
             out.write(form.photo.raw_data[0].stream._file.read())
@@ -67,6 +69,7 @@ def index():
         known = session.get('known', False))
 
 @main.route('/profile', methods=['GET', 'POST'])
+@login_required
 def profile():
     #db.drop_all()
     #db.create_all()
@@ -75,6 +78,7 @@ def profile():
     return render_template('profile.html',name = session.get('name'),known = session.get('known', False), posts=user.posts, user=user)
 
 @main.route('/conversation/<post_id>', methods=['GET', 'POST'])
+@login_required
 def conversation(post_id):
     form = CommentForm()
     if form.validate_on_submit():
