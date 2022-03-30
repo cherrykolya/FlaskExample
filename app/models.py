@@ -18,6 +18,15 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role %r>' % self.name
 
+class Category(db.Model):
+    __tablename__ = 'categories'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(20))
+    file_path = db.Column(db.String(20))
+    
+    posts = db.relationship('Post', back_populates="category")
+
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     
@@ -26,6 +35,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+
     posts = db.relationship('Post', back_populates="author")
 
     @property
@@ -42,17 +52,21 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
-@login_manager.user_loader
-def load_user(user_id: int):
-    return User.query.get(user_id)
-
 class Post(db.Model):
     __tablename__ = 'posts'
     
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     header = db.Column(db.String(64), unique=True)
     created_at = db.Column(db.DateTime())
     text = db.Column(db.String())
     photo = db.Column(db.String())
+    
     author = db.relationship("User", back_populates="posts")
+    category = db.relationship("Category", back_populates="posts")
+
+
+@login_manager.user_loader
+def load_user(user_id: int):
+    return User.query.get(user_id)

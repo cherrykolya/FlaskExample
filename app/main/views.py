@@ -3,6 +3,7 @@ from flask_login import login_required
 from sqlalchemy import select
 from . import main
 from .forms import NameForm, PostForm
+from .utils import CategoriesEnum
 from .. import db
 from ..models import User, Post, Role
 from datetime import datetime
@@ -18,13 +19,17 @@ def create_post():
     if form.validate_on_submit():
         #photo = form.photo.raw_data[0].stream._file
         d = os.path.abspath(os.getcwd()) + f'/app/static/{form.photo.data.filename}'
+        
         with open(d,'wb') as out: ## Open temporary file as bytes
             out.write(form.photo.raw_data[0].stream._file.read())
+
         post = Post(author_id=int(session['_user_id']),
+                    category_id = CategoriesEnum(form.category.data).to_value(),
                     header=form.header.data,
                     text=form.text.data,
                     created_at=datetime.now(),
                     photo= form.photo.data.filename)
+
         db.session.add(post)
         db.session.commit()
         return render_template('post_created.html') 

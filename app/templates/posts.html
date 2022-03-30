@@ -8,15 +8,14 @@
       <div class="col-sm-1 col-md-3">
         
         <div class="thumbnail">
-          <a href="#" class="thumbnail">
+          <a href="#">
             <img src="{{ url_for('static', filename=post.photo) }}" alt="panel image cap">
+            <div class="caption">
+              <h3>{{post.header}}</h3>
+              <p>{{post.text}}</p>
+              <p align="center"> <font size="2" color=#808080 face="serif">Автор: {{post.author.username}} Дата:{{post.created_at}}</font></p>
+            </div>
           </a>
-          <div class="caption">
-            <h3>{{post.header}}</h3>
-            <p>{{post.text}}</p>
-            <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-            <p align="center"> <font size="2" color=#808080 face="serif">Автор: {{post.author.username}} Дата:{{post.created_at}}</font></p>
-          </div>
         </div>
       </div>
       {% endfor %}
