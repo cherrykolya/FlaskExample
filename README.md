@@ -8,16 +8,16 @@
 ### Текущее состояние 
  - На данный в приложении доступен следующий функционал:
  - Регистрация нового пользователя
- - ![Registration](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/reg.png)
+  ![Registration](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/reg.png)
  - Авторизация существующего пользователя
  - Создание поста авторизованным пользователем
- - ![Create](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/post_create.png)
+  ![Create](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/post_create.png)
  - Просмотр созданных постов
- - ![Posts](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/posts.png)
+  ![Posts](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/posts.png)
  - Разделение постов по категориям
  - Комментирование поста авторизованным пользователем
- - ![Comments](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/comments.png)
- - 
+  ![Comments](https://github.com/cherrykolya/FlaskExample/raw/master/readme_screenshots/comments.png)
+
 ### БД
 Я выделил следующие сущности БД
  - Пользователь
